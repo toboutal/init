@@ -1,0 +1,9 @@
+#!/bin/bash
+# Ecrit un script qui met à jour toutes les sources de paquets, puis tous les paquets, puis enregistre tout dans un fichier nommé /var/log/update_script.log 
+
+LOG_FILE=/var/log/update_script.log
+
+apt-get update >> $LOG_FILE
+apt-get upgrade >> $LOG_FILE
+
+# Pour planifier cette tâche, ajoutez l'entrée "0 4 * * 1 /root/update.sh" dans le fichier crontab et exécuter la commande crontab -e

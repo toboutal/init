@@ -1,0 +1,16 @@
+#!/bin/bash
+# Verifie le fichier etc/crontab
+# Se fichier doit etre /root/check.sh
+
+if [ -e /root/hash.md5 ]
+then
+    if ! md5sum -c /root/hash.md5
+    then
+	echo "Somme du hash \=  la precedente" | mail -s "Ficher crontab modifie" root
+	md5sum /etc/crontab > /root/hash.md5
+    fi
+else
+    md5sum /etc/crontab > /root/hash.md5
+fi
+
+# Pour planifier cette tâche, ajoutez l'entrée '@midnight /root/check.sh' dans le fichier crontab.
